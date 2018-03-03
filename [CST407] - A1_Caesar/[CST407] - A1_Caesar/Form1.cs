@@ -15,8 +15,9 @@ namespace _CST407____A1_Caesar
     {
         //[ member variables ]
         private const string mAlphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";//<---capital for ease of reading
-        private string mPhrase;
+        private string mPhrase;//<---stores phrase to be BOTH encrypted and decrypted: is over written!
         private int mKey;
+        private bool mTextBoxFlag = false;//<---flag used for textbox logic: controls which textbox gets updated: used in Encrypt()
 
         //[ constructor: overloads ]
         public CaesarCipher()
@@ -40,12 +41,12 @@ namespace _CST407____A1_Caesar
                 return character;
 
             //check for positive or negative key            
-            if (mKey < 0)//<<---negative key
-                //shift
-                ndx = (((ndx - mKey) + 26) % 26);//<---plaintext = (cipherLetter - Key + 26) % 26
-            else//<---positive key
-                //shift
-                ndx = (((ndx + mKey) + 26) % 26);//<---plaintext = (cipherLetter + Key + 26) % 26
+            //if (mKey < 0)//<<---negative key
+            //shift
+            //ndx = (((ndx - mKey) + 26) % 26);//<---plaintext = (cipherLetter - Key + 26) % 26
+            //else//<---positive key
+            //shift
+            ndx = (((ndx + mKey) + 26) % 26);//<---plaintext = (cipherLetter + Key + 26) % 26
 
             //return ciphered letter
             return mAlphabet.ElementAt(ndx);
@@ -79,7 +80,7 @@ namespace _CST407____A1_Caesar
             //local variables
             string cipher = string.Empty;
 
-            //absolute value the key
+            //absolute value the key?
 
             //convert phrase to lower case to match const mAlphabet
             mPhrase = mPhrase.ToUpper();
@@ -91,8 +92,17 @@ namespace _CST407____A1_Caesar
                 cipher += Shift(mPhrase.ElementAt(ndx));
             }
 
-            //send cipher to text box control
-            cipherText_tbx.Text = cipher;
+            if (mTextBoxFlag == true)
+            {
+                Decrypt_txb.Text = cipher;
+                mTextBoxFlag = false;
+            }
+            else
+            {
+                //send cipher to text box control
+                cipherText_tbx.Text = cipher;
+                mTextBoxFlag = true;
+            }
         }
         /*
         //Function: Decrypt()
@@ -100,8 +110,12 @@ namespace _CST407____A1_Caesar
         //Task: decrypts cipher text string back into plain text: calls Encrypt()
         */
         public void Decrypt()
-        { 
-            //negate the key
+        {
+            //unwind key
+            mKey = 26 - mKey;
+
+            //set phrase to cipher
+            mPhrase = cipherText_tbx.Text;
 
             //call encrypt
             Encrypt();
@@ -111,7 +125,7 @@ namespace _CST407____A1_Caesar
         private void key_tbx_TextChanged(object sender, EventArgs e)
         {
             //check for valid key
-
+            
             //set key value
             mKey = Int32.Parse(key_tbx.Text);
         }
@@ -133,7 +147,7 @@ namespace _CST407____A1_Caesar
         //CIPHER TEXT BOX__________________________________________________________________________
         private void cipherText_tbx_TextChanged(object sender, EventArgs e)
         {
-            Decrypt_txb.Text = mPhrase;
+            //Decrypt_txb.Text = mPhrase;
         }
         //CIPHER TEXT BUTTON_______________________________________________________________________
         private void Decrypt_btn_Click(object sender, EventArgs e)
