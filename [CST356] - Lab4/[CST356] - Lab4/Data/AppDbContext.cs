@@ -13,6 +13,7 @@ namespace _CST356____Lab4.Data
         public static int id = 0;
 
         public virtual DbSet<User> Users { get; set; }
+        public virtual DbSet<Pet> Pets { get; set; }
 
         public AppDbContext()
         {

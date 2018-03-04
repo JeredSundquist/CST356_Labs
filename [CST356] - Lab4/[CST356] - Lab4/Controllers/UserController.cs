@@ -11,14 +11,14 @@ namespace _CST356____Lab4.Controllers
 {
     public class UserController : Controller
     {
-        //GET: User
+        //CREATE: GET
         [HttpGet]
         public ActionResult Create()
         {
             return View();
         }
 
-        //POST: User
+        //CREATE: POST
         [HttpPost]//<---http get end point
         public ActionResult Create(UserViewModel userViewModel)
         {
@@ -30,7 +30,7 @@ namespace _CST356____Lab4.Controllers
 
                 db.Users.Add(user);
 
-                db.SaveChanges();
+                db.SaveChanges();//<---VERY IMPORTANT: Updates DB
 
                 return RedirectToAction("List");
             }
@@ -38,7 +38,7 @@ namespace _CST356____Lab4.Controllers
                 return View();
         }
 
-        //GET: List of Users
+        //LIST
         public ActionResult List()
         {
             var db = new AppDbContext();
@@ -56,7 +56,7 @@ namespace _CST356____Lab4.Controllers
             return View(users);
         }
 
-        //Map to User
+        //MAP TO USER
         private User MapToUser(UserViewModel userViewModel)
         {
             return new User
@@ -72,7 +72,7 @@ namespace _CST356____Lab4.Controllers
             };
         }
 
-        //Map to User View Model
+        //MAP USER VIEW MODEL
         private UserViewModel MapToUserViewModel(User user)
         {
             return new UserViewModel
@@ -88,6 +88,7 @@ namespace _CST356____Lab4.Controllers
             };
         }
 
+        //DETAILS
         public ActionResult Details (int id)
         {
             var db = new AppDbContext();
@@ -96,8 +97,59 @@ namespace _CST356____Lab4.Controllers
 
             var user = db.Users.Find(id);
 
-            return View(user);
+            userViewModel = MapToUserViewModel(user);
 
+            return View(userViewModel);
+        }
+
+        //DELETE
+        public ActionResult Delete(int id)
+        {
+            var db = new AppDbContext();
+
+            var user = db.Users.Find(id);
+
+            db.Users.Remove(user);
+
+            db.SaveChanges();//<---VERY IMPORTANT: Updates DB
+
+            return RedirectToAction("List");
+        }
+
+        //EDIT: GET
+        [HttpGet]
+        public ActionResult Edit(int id)
+        {
+            var db = new AppDbContext();
+
+            var userViewModel = new UserViewModel();
+
+            var user = db.Users.Find(id);
+
+            userViewModel = MapToUserViewModel(user);
+
+            return View(userViewModel);
+        }
+
+        //EDIT: POST
+        [HttpPost]
+        public ActionResult Edit(UserViewModel userViewModel)
+        {
+            var db = new AppDbContext();
+
+            var user = db.Users.Find(userViewModel.Id);
+
+            user.FirstName = userViewModel.FirstName;
+            user.MiddleName = userViewModel.MiddleName;
+            user.LastName = userViewModel.LastName;
+            user.EmailAddress = userViewModel.EmailAddress;
+            user.DateOfBirth = userViewModel.DOB;
+            user.YearsInSchool = userViewModel.YearsInSchool;
+            user.FavoriteColor = userViewModel.FavoriteColor;
+
+            db.SaveChanges();//<---VERY IMPORTANT: Updates DB
+
+            return RedirectToAction("List");
         }
     }
 }
