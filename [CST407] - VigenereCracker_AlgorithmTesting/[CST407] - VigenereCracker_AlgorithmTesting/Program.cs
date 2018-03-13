@@ -24,7 +24,7 @@ namespace _CST407____VigenereCracker_AlgorithmTesting
         static int mProbKeyLength = 0;//<---stores probable key length during string testing: initial value set to 0 :USEDIN: FindKeyLength(), CipherToKeyLenSets(), LetterFreqAnalysis()
         static Dictionary<char,double> mFrequency = new Dictionary<char, double>();//<---stores (key char)alphabet a-z: stores (value double)occurance probabilities :NOTE: Based on letter probabilities in the english language
         static List<string> mKeyLenSets = new List<string>();//<---stores sets of strings of key length = mProbKeyLength :RTRNBY: CipherToKeyLenSets()
-        static List<string> mDiGraphList = new List<string>();//<---holds all 2 letter pattern repeats from cipher text
+        static List<string> mDiGraphList = new List<string>();//<---holds all 2 letter pattern repeats from cipher text: NOTE: Di graphs may not be very useful
         static List<string> mTriGraphList = new List<string>();//<---holds all 3 letter pattern repeats from cipher text
         static List<string> mQuadGraphList = new List<string>();//<---holds all 4 letter pattern repeats from cipher text
         
@@ -128,41 +128,44 @@ namespace _CST407____VigenereCracker_AlgorithmTesting
         //  ARGS:   String cipher text
         //  RTRN:   Int
         */
-        public static int FindKeyLength(List<string> nGraphList)
+        public static int FindKeyWordLength(List<string> nGraphList)//<---could have 3 args for each nGraph list
         {
             //local variables
-
+            //search for repeating patterns in graph
+                //if repeat is found count (starting at 0) the number of characters from the first character of first pattern to first character of its repeat
+                //store the repeated pattern as well as the distance between
+                //this process with all graphs analysed together will show the most occurring possible numeric factors of the distance between pattern repeats: Example for 1 graph: Distance of 15 so factors 15, 5, 3, 1
             //set key length
 
             //return probable key length
             return mProbKeyLength;
         }
         /*
-        //  FUNC:   CipherToKeyLenSets(string arg, int arg)
-        //  TASK:   After the probable key is found, break the cipher text into string sets with length = mProbKeyLength
+        //  FUNC:   CipherToKeyLenSetsAnalysis(string arg, int arg)
+        //  TASK:   After the probable key is found, break the cipher text into string sets with length = mProbKeyLength: Uses LetterFrequencyAnalysis()
         //  ARGS:   String cipher text, integer probable key length
-        //  RTRN:   List
-        */
-        /*
-        //  FUNC:   LetterFreqAnalysis(list arg, int arg)
-        //  TASK:   Analyse list of cipher string sets with key length = mProbKeyLength to find letter frequencies
-        //  ARGS:   List of cipher strings, integer probable key length :NOTE: mProbKeyLength will be refined and overwritten here producing a final key probability
-        //  RTRN:   Int
-        */
-        /*
-        //  FUNC:   CrackVigenere(string arg, int arg)
-        //  TASK:   Takes the original cipher text and uses the refined probable key to decipher
-        //  ARGS:   String cipher text, integer key probability
         //  RTRN:   String
+        */
+        public static string CipherToKeyLenSets(string cipher, int probKey)
+        {
+            return cipher;
+        }
+        /*
+        //  FUNC:   LetterFreqAnalysis()
+        //  TASK:   NOTE: Used in CipherKeyLenSets
+        //  ARGS:   
+        //  RTRN:   
         */
 
         //MAIN PROGRAM EXECUTION===================================================================
         static void Main(string[] args)
         {
             //Notes for testing
-                //Cipher text  = YYCIISPRYSGYCHVVSHAKLXCCCKZKMPGPTQUAPKZIRZIVWMBSMWEVDMWFCVLKLLGKEKYYIMJDSTUZTVYG
-                //Plain text = GENERALPHONGISREADYTHEKINGISINPLAYALLTHEPIECESMOVEATMIDNIGHTTHETARGETISLORDVADER
-            
+            //Cipher text  = YYCIISPRYSGYCHVVSHAKLXCCCKZKMPGPTQUAPKZIRZIVWMBSMWEVDMWFCVLKLLGKEKYYIMJDSTUZTVYG
+            //Plain text = GENERALPHONGISREADYTHEKINGISINPLAYALLTHEPIECESMOVEATMIDNIGHTTHETARGETISLORDVADER
+            //Key = SUPERSECRET
+            //Key Length = 11
+
             //local variables
             int diGraph = 2;
             int triGraph = 3;
@@ -172,16 +175,19 @@ namespace _CST407____VigenereCracker_AlgorithmTesting
             List<string> triGraphList = new List<string>();
             List<string> quadGraphList = new List<string>();
 
-            //fill dictionary
+            //fill dictionary(takes string filepath)
             FreqDict = FillFreqDict(mFilePath);
 
-            //graph builder
+            //graph builder(takes int nGraph)
             diGraphList = GraphBuilder(diGraph);
             triGraphList = GraphBuilder(triGraph);
             quadGraphList = GraphBuilder(quadGraph);
 
-            //find key length
-            //FindKeyLength(/*nGraphList*/);
+            //find key length(takes List nGraphList)
+            //FindKeyWordLength(/*nGraphList*/);
+
+            //break cipher into key length sets(takes string ciphertext, int probableKeyLength): NOTE: function call likely to be in while loop printing updated decrypted cipher message during analysis
+            //CipherToKeyLenSetsAnalysis(/*cipherText*/, /*probable key length*/): NOTE: Uses LetterFreqAnalysis()
         }
     }
 }

@@ -149,13 +149,15 @@
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\PetController.cs" />
     <Compile Include="Controllers\UserController.cs" />
     <Compile Include="Data\AppDbContext.cs" />
+    <Compile Include="Data\Entities\Pet.cs" />
     <Compile Include="Data\Entities\User.cs" />
-    <Compile Include="Data\InMemoryDatabase.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Models\View\PetViewModel.cs" />
     <Compile Include="Models\View\UserViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -196,8 +198,13 @@
     <Content Include="Views\Home\About.cshtml" />
     <Content Include="Views\Home\Contact.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
-    <Content Include="Views\User\List.cshtml" />
+    <Content Include="Views\Pet\Create.cshtml" />
+    <Content Include="Views\Pet\List.cshtml" />
     <Content Include="Views\User\Create.cshtml" />
+    <Content Include="Views\User\List.cshtml" />
+    <Content Include="Views\User\Details.cshtml" />
+    <Content Include="Views\User\Edit.cshtml" />
+    <Content Include="Views\User\Delete.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
