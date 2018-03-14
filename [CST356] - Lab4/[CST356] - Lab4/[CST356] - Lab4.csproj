@@ -198,13 +198,15 @@
     <Content Include="Views\Home\About.cshtml" />
     <Content Include="Views\Home\Contact.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
-    <Content Include="Views\Pet\Create.cshtml" />
-    <Content Include="Views\Pet\List.cshtml" />
     <Content Include="Views\User\Create.cshtml" />
     <Content Include="Views\User\List.cshtml" />
     <Content Include="Views\User\Details.cshtml" />
     <Content Include="Views\User\Edit.cshtml" />
     <Content Include="Views\User\Delete.cshtml" />
+    <Content Include="Views\Pet\Delete.cshtml" />
+    <Content Include="Views\Pet\Edit.cshtml" />
+    <Content Include="Views\Pet\List.cshtml" />
+    <Content Include="Views\Pet\Create.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

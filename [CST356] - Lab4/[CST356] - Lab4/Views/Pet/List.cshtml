@@ -1,14 +1,14 @@
-﻿@model IEnumerable<_CST356____Lab4.Data.Entities.Pet>
+﻿@model IEnumerable<_CST356____Lab4.Models.View.PetViewModel>
 
 @{
-    ViewBag.Title = "List";
+    ViewBag.Title = "Pets";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
 <h2>List</h2>
 
 <p>
-    @Html.ActionLink("Create New", "Create")
+    @Html.ActionLink("Create New", "Create", new {userId = ViewBag.UserId })
 </p>
 <table class="table">
     <tr>

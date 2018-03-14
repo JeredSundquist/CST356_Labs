@@ -98,54 +98,59 @@ namespace _CST356____Lab4.Controllers
         //    return View(userViewModel);
         //}
 
-        ////DELETE
-        //public ActionResult Delete(int id)
-        //{
-        //    var db = new AppDbContext();
+        //DELETE
+        public ActionResult Delete(int? id)
+        {
+            var db = new AppDbContext();
 
-        //    var user = db.Users.Find(id);
+            var pet = db.Pets.Find(id);
 
-        //    db.Users.Remove(user);
+            if (pet != null)
+            {
+                db.Pets.Remove(pet);
 
-        //    db.SaveChanges();//<---VERY IMPORTANT: Updates DB
+                db.SaveChanges();//<---VERY IMPORTANT: Updates DB
+            }
 
-        //    return RedirectToAction("List");
-        //}
+            return RedirectToAction("List", new { UserId = pet.UserId });
+        }
 
-        ////EDIT: GET
-        //[HttpGet]
-        //public ActionResult Edit(int id)
-        //{
-        //    var db = new AppDbContext();
+        //EDIT: GET
+        [HttpGet]
+        public ActionResult Edit(int? id)
+        {
+            var db = new AppDbContext();
 
-        //    var userViewModel = new UserViewModel();
+            var petViewModel = new PetViewModel();
 
-        //    var user = db.Users.Find(id);
+            var pet = db.Pets.Find(id);
 
-        //    userViewModel = MapToUserViewModel(user);
+            //userViewModel = MapToUserViewModel(user);
 
-        //    return View(userViewModel);
-        //}
+            return View(pet);
+        }
 
-        ////EDIT: POST
-        //[HttpPost]
-        //public ActionResult Edit(UserViewModel userViewModel)
-        //{
-        //    var db = new AppDbContext();
+        //EDIT: POST
+        [HttpPost]
+        public ActionResult Edit(PetViewModel petViewModel)
+        {
+            var db = new AppDbContext();
 
-        //    var user = db.Users.Find(userViewModel.Id);
+            if (ModelState.IsValid)
+            {
+                var pet = db.Pets.Find(petViewModel.Id);
 
-        //    user.FirstName = userViewModel.FirstName;
-        //    user.MiddleName = userViewModel.MiddleName;
-        //    user.LastName = userViewModel.LastName;
-        //    user.EmailAddress = userViewModel.EmailAddress;
-        //    user.DateOfBirth = userViewModel.DOB;
-        //    user.YearsInSchool = userViewModel.YearsInSchool;
-        //    user.FavoriteColor = userViewModel.FavoriteColor;
+                pet.Id = petViewModel.Id;
+                pet.Name = petViewModel.Name;
+                pet.Age = petViewModel.Age;
+                pet.UserId = petViewModel.UserId;
 
-        //    db.SaveChanges();//<---VERY IMPORTANT: Updates DB
+                db.SaveChanges();//<---VERY IMPORTANT: Updates DB
 
-        //    return RedirectToAction("List");
-        //}
+                return RedirectToAction("List");
+            }
+
+            return View();
+        }
     }
 }
