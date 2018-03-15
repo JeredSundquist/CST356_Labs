@@ -207,6 +207,7 @@
     <Content Include="Views\Pet\Edit.cshtml" />
     <Content Include="Views\Pet\List.cshtml" />
     <Content Include="Views\Pet\Create.cshtml" />
+    <Content Include="Views\Pet\Details.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

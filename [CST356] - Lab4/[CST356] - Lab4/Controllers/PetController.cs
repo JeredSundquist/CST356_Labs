@@ -57,7 +57,7 @@ namespace _CST356____Lab4.Controllers
                 petViewModels.Add(petViewModel);
             }
 
-            return View(pets);
+            return View(petViewModels);
         }
 
         //MAP TO PET
@@ -84,19 +84,20 @@ namespace _CST356____Lab4.Controllers
             };
         }
 
+        //EXTRA CREDIT_____________________________________________________________________________
         //DETAILS
-        //public ActionResult Details(int id)
-        //{
-        //    var db = new AppDbContext();
+        public ActionResult Details(int id)
+        {
+            var db = new AppDbContext();
 
-        //    var userViewModel = new UserViewModel();
+            var petViewModel = new PetViewModel();
 
-        //    var user = db.Users.Find(id);
+            var pet = db.Pets.Find(id);
 
-        //    userViewModel = MapToUserViewModel(user);
+            petViewModel = MapToPetViewModel(pet);
 
-        //    return View(userViewModel);
-        //}
+            return View(petViewModel);
+        }
 
         //DELETE
         public ActionResult Delete(int? id)
@@ -125,9 +126,9 @@ namespace _CST356____Lab4.Controllers
 
             var pet = db.Pets.Find(id);
 
-            //userViewModel = MapToUserViewModel(user);
+            petViewModel = MapToPetViewModel(pet);
 
-            return View(pet);
+            return View(petViewModel);
         }
 
         //EDIT: POST
@@ -147,7 +148,7 @@ namespace _CST356____Lab4.Controllers
 
                 db.SaveChanges();//<---VERY IMPORTANT: Updates DB
 
-                return RedirectToAction("List");
+                return RedirectToAction("List", new { UserId = pet.UserId });
             }
 
             return View();
