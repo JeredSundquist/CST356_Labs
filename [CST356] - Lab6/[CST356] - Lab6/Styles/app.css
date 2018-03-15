@@ -1,0 +1,44 @@
+﻿body 
+{
+    font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    font-size: 16px;
+    background: black;
+    color: white;
+}
+
+header
+{
+    background: grey;
+    color: green;
+    height: 80px;/*made 80px to better line up text*/
+    padding-top: 2px;
+}
+
+nav
+{
+    background: white;
+    color:blueviolet;
+    height:40px;
+    padding-top:10px;
+}
+
+.sStyles
+{
+    color: red;
+    font-style: italic;
+}
+
+form.pStyles
+{
+    padding-top: 5px;
+    padding-bottom: 5px;
+}
+
+table, th, td/*Extra Credit: Formatted the table on help to make it look better!*/
+{
+    border: solid;
+    border-color: grey;/*since I have a black background*/
+    border-width: 2px;
+    padding: 5px;
+    text-align: left;
+}

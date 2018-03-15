@@ -1,0 +1,48 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>Registration</title>
+    <link href="Styles/app.css" rel="stylesheet" type="text/css" />
+</head>
+<body>
+    <header>
+        <h1>
+            Registration
+        </h1>
+    </header>
+    <nav>
+        <a href="Index.html">Index</a>
+        <a href="help.html">Help</a>
+    </nav>
+    <form>
+        <p class="pStyles">
+            First Name: <input id="firstName" type="text" maxlength="10" />
+        </p>
+        <p class="pStyles">
+            Last Name: <input id="lastName" type="text" maxlength="15" />
+        </p>
+        <p class="pStyles">
+            Age: <input id="age" type="text" />
+        </p>
+        <p>
+            Year In School: <br />
+            Freshman: <input type="radio" name="year" />
+            Sophmore: <input type="radio" name="year" />
+            Junior: <input type="radio" name="year" />
+            Senior: <input type="radio" name="year" />
+        </p>
+        <p>
+            <input type="button" value="Register!" onclick="displayRegistration()" />
+        </p>
+    </form>
+    <b>
+        Summary
+    </b>
+    <div id="summary"></div>
+    <footer>
+        Copyright 2018
+    </footer>
+    <script type="text/javascript" src="scripts/app.js"></script>
+</body>
+</html>
