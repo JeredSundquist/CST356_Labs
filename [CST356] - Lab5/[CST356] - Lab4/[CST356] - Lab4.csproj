@@ -160,6 +160,8 @@
     <Compile Include="Models\View\PetViewModel.cs" />
     <Compile Include="Models\View\UserViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Repositories\IUserPetRepository.cs" />
+    <Compile Include="Repositories\UserPetRepository.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\bootstrap.css" />

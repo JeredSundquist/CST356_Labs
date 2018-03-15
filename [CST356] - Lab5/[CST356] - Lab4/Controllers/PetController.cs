@@ -4,6 +4,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using _CST356____Lab4.Data;
+using _CST356____Lab4.Repositories;
 using _CST356____Lab4.Data.Entities;
 using _CST356____Lab4.Models.View;
 
@@ -11,6 +12,10 @@ namespace _CST356____Lab4.Controllers
 {
     public class PetController : Controller
     {
+        public PetController(UserPetRepository lb5Db)
+        {
+            lb5Db = new UserPetRepository();
+        }
         //CREATE: GET
         [HttpGet]
         public ActionResult Create(int? userId)
@@ -25,6 +30,7 @@ namespace _CST356____Lab4.Controllers
         public ActionResult Create(PetViewModel petViewModel)
         {
             var db = new AppDbContext();
+            var lb5db = new UserPetRepository(db);
 
             if (ModelState.IsValid)
             {
