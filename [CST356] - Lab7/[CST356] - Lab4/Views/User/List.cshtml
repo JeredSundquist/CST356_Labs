@@ -1,16 +1,19 @@
 ﻿@model IEnumerable<_CST356____Lab4.Models.View.UserViewModel>
 
 @{
+    /**/
+
     ViewBag.Title = "List";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2>List</h2>
+<h2 class="well">User List</h2>
 
 <p>
     @Html.ActionLink("Create New", "Create")
 </p>
-<table class="table">
+
+<table class="table-striped">
     <tr>
         <th>
             @Html.DisplayNameFor(model => model.FirstName)
@@ -36,36 +39,56 @@
         <th></th>
     </tr>
 
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.FirstName)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.MiddleName)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.LastName)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.EmailAddress)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.DOB)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.YearsInSchool)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.FavoriteColor)
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.Id }) |
-            @Html.ActionLink("Details", "Details", new { id=item.Id }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.Id }) |
-            @Html.ActionLink("Pets", "List", "Pet", new { userId = item.Id}, null)
-        </td>
-    </tr>
-}
+    @foreach (var item in Model)
+    {
+        @*//Check for more than 2 people in the list*@
+        if (Model.Count() > 2)
+        {
+            <caption class="alert alert-warning alert-dismissible">
+                <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                <strong>Warning!</strong> More than 2 people in the list of users!
+            </caption>
+        }
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.FirstName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.MiddleName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.LastName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.EmailAddress)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.DOB)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.YearsInSchool)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.FavoriteColor)
+            </td>
+            <td>
+                @Html.ActionLink("Edit", "Edit", new { id = item.Id }, new { @class="btn btn-xs btn-default", style ="text-decoration: none;" }) |
+                @Html.ActionLink("Details", "Details", new { id = item.Id }, new { @class = "btn btn-xs btn-default", style = "text-decoration: none;" }) |
+                @Html.ActionLink("Delete", "Delete", new { id = item.Id }, new { @class = "btn btn-xs btn-default", style = "text-decoration: none;" }) |
+                @Html.ActionLink("Pets", "List", "Pet", new { userId = item.Id }, new { @class = "btn btn-xs btn-default", style = "text-decoration: none;" })
+            </td>
+        </tr>
+    }
 
 </table>
+
+@*//SCRIPTS________________________________________________________________________________________*@
+@section Scripts
+{
+   <script>
+       $(document).ready(function ()
+       {
+           alert("Hello");
+       });
+   </script>
+}
