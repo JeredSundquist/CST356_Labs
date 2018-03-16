@@ -12,83 +12,116 @@
 <p>
     @Html.ActionLink("Create New", "Create")
 </p>
-
-<table class="table-striped">
-    <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.FirstName)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.MiddleName)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.LastName)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.EmailAddress)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.DOB)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.YearsInSchool)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.FavoriteColor)
-        </th>
-        <th></th>
-    </tr>
-
-    @foreach (var item in Model)
-    {
-        @*//Check for more than 2 people in the list*@
-        if (Model.Count() > 2)
-        {
-            <caption class="alert alert-warning alert-dismissible">
-                <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
-                <strong>Warning!</strong> More than 2 people in the list of users!
-            </caption>
-        }
+<div id="tableShowHide">
+    <table class="table-striped table-hover">
         <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.FirstName)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.MiddleName)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.LastName)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.EmailAddress)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.DOB)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.YearsInSchool)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.FavoriteColor)
-            </td>
-            <td>
-                @Html.ActionLink("Edit", "Edit", new { id = item.Id }, new { @class="btn btn-xs btn-default", style ="text-decoration: none;" }) |
-                @Html.ActionLink("Details", "Details", new { id = item.Id }, new { @class = "btn btn-xs btn-default", style = "text-decoration: none;" }) |
-                @Html.ActionLink("Delete", "Delete", new { id = item.Id }, new { @class = "btn btn-xs btn-default", style = "text-decoration: none;" }) |
-                @Html.ActionLink("Pets", "List", "Pet", new { userId = item.Id }, new { @class = "btn btn-xs btn-default", style = "text-decoration: none;" })
-            </td>
+            <th>
+                @Html.DisplayNameFor(model => model.FirstName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.MiddleName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.LastName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.EmailAddress)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.DOB)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.YearsInSchool)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.FavoriteColor)
+            </th>
+            <th></th>
         </tr>
-    }
 
-</table>
+        @foreach (var item in Model)
+        {
+            @*//Check for more than 2 people in the list*@
+            if (Model.Count() > 2)
+            {
+                <caption class="alert alert-warning alert-dismissible">
+                    <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                    <strong>Warning!</strong> More than 2 people in the list of users!
+                </caption>
+            }
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.FirstName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.MiddleName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.LastName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.EmailAddress)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.DOB)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.YearsInSchool)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.FavoriteColor)
+                </td>
+                <td>
+                    @Html.ActionLink("Edit", "Edit", new { id = item.Id }, new { @class = "btn btn-xs btn-default", style = "text-decoration: none;" }) |
+                    @Html.ActionLink("Details", "Details", new { id = item.Id }, new { @class = "btn btn-xs btn-default", style = "text-decoration: none;" }) |
+                    @Html.ActionLink("Delete", "Delete", new { id = item.Id }, new { @class = "btn btn-xs btn-default", style = "text-decoration: none;" }) |
+                    @Html.ActionLink("Pets", "List", "Pet", new { userId = item.Id }, new { @class = "btn btn-xs btn-default", style = "text-decoration: none;" })
+                </td>
+            </tr>
+        }
+
+    </table>
+</div>
+<div>
+    <button id="buttonShow" type="button" class="btn btn-default">Show Table</button>
+    <button id="buttonHide" type="button" class="btn btn-default">Hide Table</button>
+</div>
 
 @*//SCRIPTS________________________________________________________________________________________*@
 @section Scripts
 {
-   <script>
-       $(document).ready(function ()
-       {
-           alert("Hello");
-       });
-   </script>
+    <script>
+
+        @*ready document: This is jQuery*@
+        $(document).ready(function ()
+        {
+            @*Event: Show Button Click: This is jQuery*@
+            $("#buttonShow").click(function ()
+            {
+                $("#tableShowHide").show();
+            });
+
+            @*Event: Hide Button Click: This is jQuery*@
+            $("#buttonHide").click(function ()
+            {
+                $("#tableShowHide").hide();
+            });
+        });
+
+        @*Show function: This is javaScript*@
+        function Show()
+        {
+            var v = document.getElementById("tableShowHide");
+
+            v.style.display = "block";
+        }
+
+        @*Hide function: This is javaScript*@
+        function Hide()
+        {
+            var v = document.getElementById("tableShowHide");
+
+            v.style.display = "none";
+        }
+    </script>
 }
