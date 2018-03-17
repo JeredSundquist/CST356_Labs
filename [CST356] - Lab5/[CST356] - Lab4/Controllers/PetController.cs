@@ -12,10 +12,6 @@ namespace _CST356____Lab4.Controllers
 {
     public class PetController : Controller
     {
-        public PetController(UserPetRepository lb5Db)
-        {
-            lb5Db = new UserPetRepository();
-        }
         //CREATE: GET
         [HttpGet]
         public ActionResult Create(int? userId)
@@ -29,16 +25,16 @@ namespace _CST356____Lab4.Controllers
         [HttpPost]//<---http get end point
         public ActionResult Create(PetViewModel petViewModel)
         {
-            var db = new AppDbContext();
-            var lb5db = new UserPetRepository(db);
+            //var db = new AppDbContext();
+            var lb5Db = new UserPetRepository();
 
             if (ModelState.IsValid)
             {
                 var pet = MapToPet(petViewModel);
 
-                db.Pets.Add(pet);
-
-                db.SaveChanges();//<---VERY IMPORTANT: Updates DB
+                //db.Pets.Add(pet);
+                lb5Db.AddSavePet(pet);
+                //db.SaveChanges();//<---VERY IMPORTANT: Updates DB
 
                 return RedirectToAction("List", new {UserId = petViewModel.UserId});
             }
@@ -51,11 +47,13 @@ namespace _CST356____Lab4.Controllers
         {
             ViewBag.UserId = userId;
 
-            var db = new AppDbContext();
+            //var db = new AppDbContext();
+            var lb5Db = new UserPetRepository();
 
             var petViewModels = new List<PetViewModel>();
 
-            var pets = db.Pets.Where(pet => pet.UserId == userId).ToList();//<---ADEN: used your line here, could use confirmation i know what this is doing!
+            //var pets = db.Pets.Where(pet => pet.UserId == userId).ToList();//<---ADEN: used your line here, could use confirmation i know what this is doing!
+            var pets = lb5Db.GetPets(userId);
 
             foreach (var pet in pets)
             {

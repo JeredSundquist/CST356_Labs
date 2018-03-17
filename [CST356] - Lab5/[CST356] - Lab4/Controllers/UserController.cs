@@ -4,6 +4,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using _CST356____Lab4.Data;
+using _CST356____Lab4.Repositories;
 using _CST356____Lab4.Data.Entities;
 using _CST356____Lab4.Models.View;
 
@@ -22,15 +23,17 @@ namespace _CST356____Lab4.Controllers
         [HttpPost]//<---http get end point
         public ActionResult Create(UserViewModel userViewModel)
         {
-            var db = new AppDbContext();
-            
+            //var db = new AppDbContext();
+            var lb5Db = new UserPetRepository();
+
             if (ModelState.IsValid)
             {
                 var user = MapToUser(userViewModel);
 
-                db.Users.Add(user);
+                //db.Users.Add(user);
+                lb5Db.AddSaveUser(user);
 
-                db.SaveChanges();//<---VERY IMPORTANT: Updates DB
+                //db.SaveChanges();//<---VERY IMPORTANT: Updates DB
 
                 return RedirectToAction("List");
             }
@@ -41,19 +44,22 @@ namespace _CST356____Lab4.Controllers
         //LIST
         public ActionResult List()
         {
-            var db = new AppDbContext();
-     
+            //var db = new AppDbContext();
+            var lb5Db = new UserPetRepository();
+
             var userViewModels = new List<UserViewModel>();
-       
-            foreach (var user in db.Users)
+
+            var users = lb5Db.GetUsers();
+
+            foreach (var user in /*db.Users*/users)
             {
                 var userViewModel = MapToUserViewModel(user);
                 userViewModels.Add(userViewModel);
             }
 
-            var users = userViewModels;
+            //var users = userViewModels;
 
-            return View(users);
+            return View(userViewModels);
         }
 
         //MAP TO USER
