@@ -5,6 +5,7 @@ using System.Web;
 using System.Web.Mvc;
 using System.Web.Optimization;
 using System.Web.Routing;
+using _CST356____Lab4.App_Start;//<---added
 
 namespace _CST356____Lab4
 {
@@ -16,6 +17,7 @@ namespace _CST356____Lab4
             FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);
             RouteConfig.RegisterRoutes(RouteTable.Routes);
             BundleConfig.RegisterBundles(BundleTable.Bundles);
+            DependencyInjectionConfig.Register();//<---Dependency Injection Config File Registered
         }
     }
 }
