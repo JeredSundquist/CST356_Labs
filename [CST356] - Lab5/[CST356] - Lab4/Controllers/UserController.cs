@@ -12,6 +12,14 @@ namespace _CST356____Lab4.Controllers
 {
     public class UserController : Controller
     {
+        //DEPENDENCY INJECTION
+        private IUserPetRepository lb5Db;
+
+        public UserController(IUserPetRepository repoInject)
+        {
+            lb5Db = repoInject;
+        }
+
         //CREATE: GET
         [HttpGet]
         public ActionResult Create()
@@ -24,7 +32,7 @@ namespace _CST356____Lab4.Controllers
         public ActionResult Create(UserViewModel userViewModel)
         {
             //var db = new AppDbContext();
-            var lb5Db = new UserPetRepository();
+            //var lb5Db = new UserPetRepository();
 
             if (ModelState.IsValid)
             {
@@ -45,7 +53,7 @@ namespace _CST356____Lab4.Controllers
         public ActionResult List()
         {
             //var db = new AppDbContext();
-            var lb5Db = new UserPetRepository();
+            //var lb5Db = new UserPetRepository();
 
             var userViewModels = new List<UserViewModel>();
 
@@ -97,11 +105,12 @@ namespace _CST356____Lab4.Controllers
         //DETAILS
         public ActionResult Details (int id)
         {
-            var db = new AppDbContext();
+            //var db = new AppDbContext();
 
             var userViewModel = new UserViewModel();
 
-            var user = db.Users.Find(id);
+            //var user = db.Users.Find(id);
+            var user = lb5Db.GetUser(id);
 
             userViewModel = MapToUserViewModel(user);
 
@@ -111,13 +120,14 @@ namespace _CST356____Lab4.Controllers
         //DELETE
         public ActionResult Delete(int id)
         {
-            var db = new AppDbContext();
+            //var db = new AppDbContext();
 
-            var user = db.Users.Find(id);
+            //var user = db.Users.Find(id);
+            lb5Db.DeleteUser(id);
 
-            db.Users.Remove(user);
+            //db.Users.Remove(user);
 
-            db.SaveChanges();//<---VERY IMPORTANT: Updates DB
+            //db.SaveChanges();//<---VERY IMPORTANT: Updates DB
 
             return RedirectToAction("List");
         }
@@ -126,11 +136,12 @@ namespace _CST356____Lab4.Controllers
         [HttpGet]
         public ActionResult Edit(int id)
         {
-            var db = new AppDbContext();
+            //var db = new AppDbContext();
 
             var userViewModel = new UserViewModel();
 
-            var user = db.Users.Find(id);
+            //var user = db.Users.Find(id);
+            var user = lb5Db.GetUser(id);
 
             userViewModel = MapToUserViewModel(user);
 
@@ -141,9 +152,10 @@ namespace _CST356____Lab4.Controllers
         [HttpPost]
         public ActionResult Edit(UserViewModel userViewModel)
         {
-            var db = new AppDbContext();
+            //var db = new AppDbContext();
 
-            var user = db.Users.Find(userViewModel.Id);
+            //var user = db.Users.Find(userViewModel.Id);
+            var user = lb5Db.GetUser(userViewModel.Id);
 
             user.FirstName = userViewModel.FirstName;
             user.MiddleName = userViewModel.MiddleName;
@@ -153,7 +165,8 @@ namespace _CST356____Lab4.Controllers
             user.YearsInSchool = userViewModel.YearsInSchool;
             user.FavoriteColor = userViewModel.FavoriteColor;
 
-            db.SaveChanges();//<---VERY IMPORTANT: Updates DB
+            //db.SaveChanges();//<---VERY IMPORTANT: Updates DB
+            lb5Db.EditUser(user);
 
             return RedirectToAction("List");
         }

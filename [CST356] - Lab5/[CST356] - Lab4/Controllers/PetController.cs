@@ -12,6 +12,14 @@ namespace _CST356____Lab4.Controllers
 {
     public class PetController : Controller
     {
+        //DEPENDENCY INJECTION
+        IUserPetRepository lb5Db;
+
+        public PetController(IUserPetRepository repoInject)
+        {
+            lb5Db = repoInject;
+        }
+
         //CREATE: GET
         [HttpGet]
         public ActionResult Create(int? userId)
@@ -26,7 +34,7 @@ namespace _CST356____Lab4.Controllers
         public ActionResult Create(PetViewModel petViewModel)
         {
             //var db = new AppDbContext();
-            var lb5Db = new UserPetRepository();
+            //var lb5Db = new UserPetRepository();
 
             if (ModelState.IsValid)
             {
@@ -48,7 +56,7 @@ namespace _CST356____Lab4.Controllers
             ViewBag.UserId = userId;
 
             //var db = new AppDbContext();
-            var lb5Db = new UserPetRepository();
+            //var lb5Db = new UserPetRepository();
 
             var petViewModels = new List<PetViewModel>();
 
@@ -92,11 +100,12 @@ namespace _CST356____Lab4.Controllers
         //DETAILS
         public ActionResult Details(int id)
         {
-            var db = new AppDbContext();
+            //var db = new AppDbContext();
 
             var petViewModel = new PetViewModel();
 
-            var pet = db.Pets.Find(id);
+            //var pet = db.Pets.Find(id);
+            var pet = lb5Db.GetPet(id);
 
             petViewModel = MapToPetViewModel(pet);
 
@@ -104,31 +113,34 @@ namespace _CST356____Lab4.Controllers
         }
 
         //DELETE
-        public ActionResult Delete(int? id)
+        public ActionResult Delete(int id)
         {
-            var db = new AppDbContext();
+            //var db = new AppDbContext();
 
-            var pet = db.Pets.Find(id);
+            //var pet = db.Pets.Find(id);
+            var pet = lb5Db.GetPet(id);
 
-            if (pet != null)
-            {
-                db.Pets.Remove(pet);
+            //if (pet != null)
+            //{
+            //    db.Pets.Remove(pet);
 
-                db.SaveChanges();//<---VERY IMPORTANT: Updates DB
-            }
+            //    db.SaveChanges();//<---VERY IMPORTANT: Updates DB
+            //}
+            lb5Db.DeletePet(id);
 
             return RedirectToAction("List", new { UserId = pet.UserId });
         }
 
         //EDIT: GET
         [HttpGet]
-        public ActionResult Edit(int? id)
+        public ActionResult Edit(int id)
         {
-            var db = new AppDbContext();
+            //var db = new AppDbContext();
 
             var petViewModel = new PetViewModel();
 
-            var pet = db.Pets.Find(id);
+            //var pet = db.Pets.Find(id);
+            var pet = lb5Db.GetPet(id);
 
             petViewModel = MapToPetViewModel(pet);
 
@@ -139,18 +151,20 @@ namespace _CST356____Lab4.Controllers
         [HttpPost]
         public ActionResult Edit(PetViewModel petViewModel)
         {
-            var db = new AppDbContext();
+            //var db = new AppDbContext();
 
             if (ModelState.IsValid)
             {
-                var pet = db.Pets.Find(petViewModel.Id);
+                //var pet = db.Pets.Find(petViewModel.Id);
+                var pet = lb5Db.GetPet(petViewModel.Id);
 
                 pet.Id = petViewModel.Id;
                 pet.Name = petViewModel.Name;
                 pet.Age = petViewModel.Age;
                 pet.UserId = petViewModel.UserId;
 
-                db.SaveChanges();//<---VERY IMPORTANT: Updates DB
+                //db.SaveChanges();//<---VERY IMPORTANT: Updates DB
+                lb5Db.EditPet(pet);
 
                 return RedirectToAction("List", new { UserId = pet.UserId });
             }
